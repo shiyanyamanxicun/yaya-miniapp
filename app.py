@@ -167,4 +167,6 @@ def server_error(e):
 
 if __name__ == "__main__":
     init_db()
-    app.run(debug=True, host="0.0.0.0", port=5001, threaded=True)
+    port = int(os.environ.get("PORT", 5001))
+    debug = os.environ.get("RAILWAY_ENVIRONMENT") is None
+    app.run(debug=debug, host="0.0.0.0", port=port, threaded=True)
