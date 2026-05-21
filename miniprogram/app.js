@@ -5,7 +5,7 @@ App({
     selectedSymptom: '',
     bgMusicPlaying: false,
     bgmReady: false,
-    apiBase: 'http://172.20.10.4:5001',
+    apiBase: 'https://yaya-miniapp-production.up.railway.app',
   },
 
   onLaunch() {
