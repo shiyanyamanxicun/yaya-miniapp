@@ -1,0 +1,101 @@
+<view class="container">
+  <music-toggle />
+  <view class="ghibli-bg"></view>
+
+  <!-- Messages scroll -->
+  <scroll-view
+    class="chat-scroll"
+    scroll-y
+    scroll-into-view="{{scrollTo}}"
+    enhanced
+    show-scrollbar="{{false}}"
+    enable-passive
+  >
+    <view class="msg-list">
+      <block wx:for="{{messages}}" wx:key="id">
+        <!-- AI message -->
+        <view class="msg-row ai" wx:if="{{item.role === 'ai'}}" id="msg-{{item.id}}">
+          <view class="msg-avatar" catchtap="onToothTap">
+            <view class="chat-tooth {{toothBounce ? 'bounce' : ''}} {{toothMood}}">
+              <view class="ct-body">
+                <view class="ct-eyes">
+                  <view class="ct-eye"></view>
+                  <view class="ct-eye"></view>
+                </view>
+                <view class="ct-blush"></view>
+                <view class="ct-smile"></view>
+              </view>
+            </view>
+          </view>
+          <view class="msg-bubble ai">
+            <text>{{item.text}}</text>
+          </view>
+        </view>
+
+        <!-- User message -->
+        <view class="msg-row user" wx:if="{{item.role === 'user'}}" id="msg-{{item.id}}">
+          <view class="msg-bubble user">
+            <text>{{item.text}}</text>
+          </view>
+        </view>
+      </block>
+
+      <!-- Typing indicator -->
+      <view class="msg-row ai" wx:if="{{typing}}">
+        <view class="msg-avatar">
+          <view class="chat-tooth typing-bounce mood-thinking">
+            <view class="ct-body">
+              <view class="ct-eyes thinking-eyes">
+                <view class="ct-eye"></view>
+                <view class="ct-eye"></view>
+              </view>
+              <view class="ct-blush"></view>
+              <view class="ct-mouth-o"></view>
+            </view>
+          </view>
+        </view>
+        <view class="msg-bubble ai typing-bubble">
+          <view class="typing-dots">
+            <view class="dot"></view><view class="dot"></view><view class="dot"></view>
+          </view>
+        </view>
+      </view>
+
+      <!-- Choice buttons after AI response -->
+      <view class="choices-area" wx:if="{{showChoices && !typing}}">
+        <view class="choice-btn" bindtap="onKeepChatting">
+          <text>还想再说说...</text>
+        </view>
+        <view class="choice-btn primary" bindtap="onFeelBetter">
+          <text>感觉好多了</text>
+        </view>
+      </view>
+
+      <view style="height: 24rpx;"></view>
+    </view>
+  </scroll-view>
+
+  <!-- Input bar fixed at bottom -->
+  <view class="input-bar">
+    <view class="input-box">
+      <textarea
+        class="chat-input"
+        value="{{inputText}}"
+        placeholder="写下你想说的..."
+        bindinput="onInput"
+        maxlength="500"
+        confirm-type="send"
+        bindconfirm="onSend"
+        cursor-spacing="16"
+        adjust-position="{{true}}"
+        auto-height
+      ></textarea>
+      <view class="send-btn {{inputText.trim() ? 'active' : ''}}" bindtap="onSend">
+        <text>▶</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Sparkles -->
+  <view wx:for="{{sparkles}}" wx:key="id" class="float-sparkle" style="left: {{50 + item.x}}rpx; top: {{200 + item.y}}rpx; font-size: {{item.size}}rpx;">{{item.emoji}}</view>
+</view>

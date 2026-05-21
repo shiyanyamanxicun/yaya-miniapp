@@ -1,0 +1,65 @@
+.container {
+  min-height: 100vh; position: relative; overflow: hidden;
+}
+
+/* 使用全局喜羊羊主题背景 */
+
+/* Twinkling sparkles (daytime) */
+.stars { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+.star {
+  position: absolute; color: rgba(255,255,255,0.8);
+  animation: twinkle 3s ease-in-out infinite;
+}
+.star.s1 { top: 12%; left: 10%; font-size: 28rpx; animation-delay: 0s; }
+.star.s2 { top: 22%; left: 25%; font-size: 20rpx; animation-delay: 0.7s; }
+.star.s3 { top: 15%; left: 48%; font-size: 24rpx; animation-delay: 1.4s; }
+.star.s4 { top: 8%; left: 68%; font-size: 18rpx; animation-delay: 2.1s; }
+.star.s5 { top: 20%; left: 82%; font-size: 26rpx; animation-delay: 0.4s; }
+.star.s6 { top: 10%; left: 92%; font-size: 22rpx; animation-delay: 1.8s; }
+@keyframes twinkle {
+  0%,100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.4); }
+}
+
+.sky-area { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.sky-butterfly {
+  position: absolute; opacity: 0.55;
+  animation: fly 8s ease-in-out infinite;
+}
+@keyframes fly {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(60rpx, -80rpx) rotate(8deg); }
+  50% { transform: translate(20rpx, -120rpx) rotate(-5deg); }
+  75% { transform: translate(-40rpx, -40rpx) rotate(5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+.end-content {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; min-height: 100vh; padding: 48rpx; gap: 24rpx;
+  text-align: center;
+}
+.tooth-mini { margin-bottom: 16rpx; }
+.mini-body {
+  width: 120rpx; height: 128rpx;
+  background: linear-gradient(180deg, #FFFAF8 0%, #FFF0EC 100%);
+  border-radius: 48% 48% 38% 38% / 55% 55% 40% 40%;
+  box-shadow: 0 6rpx 20rpx rgba(0,0,0,0.15);
+  position: relative; display: flex; justify-content: center; align-items: center;
+}
+.mini-eyes { display: flex; gap: 22rpx; }
+.m-eye {
+  width: 24rpx; height: 26rpx; background: #1A0A14; border-radius: 50%;
+  position: relative;
+}
+.m-pupil {
+  position: absolute; width: 10rpx; height: 10rpx; background: #FFF;
+  border-radius: 50%; top: 4rpx; left: 7rpx;
+}
+.mini-mouth {
+  position: absolute; bottom: 30rpx; width: 28rpx; height: 12rpx;
+  border-bottom: 4rpx solid #C08080; border-radius: 0 0 50% 50%;
+}
+.end-title { font-size: 40rpx; color: #2D5A1E; font-weight: 700; display: block; text-shadow: 0 2rpx 4rpx rgba(255,255,255,0.4); }
+.end-sub { font-size: 28rpx; color: #4A7A38; display: block; }
+.end-count { font-size: 30rpx; color: #3D6B2E; font-weight: 600; display: block; margin-top: 16rpx; }

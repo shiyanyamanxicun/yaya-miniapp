@@ -1,0 +1,22 @@
+{
+  "pages": [
+    "pages/welcome/welcome",
+    "pages/chat/chat",
+    "pages/heal/heal",
+    "pages/jump/jump",
+    "pages/game/game",
+    "pages/end/end"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#5B9BD5",
+    "navigationBarTitleText": "难过急救包",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#5B9BD5",
+    "backgroundTextStyle": "light"
+  },
+  "usingComponents": {
+    "music-toggle": "/components/music-toggle/music-toggle"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

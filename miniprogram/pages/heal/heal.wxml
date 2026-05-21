@@ -1,0 +1,156 @@
+<view class="container">
+  <music-toggle />
+  <view class="ghibli-bg"></view>
+
+  <!-- Floating petals -->
+  <view class="fireflies">
+    <view class="firefly f1">🌸</view>
+    <view class="firefly f2">🌼</view>
+    <view class="firefly f3">🍀</view>
+    <view class="firefly f4">🌸</view>
+    <view class="firefly f5">🌿</view>
+    <view class="firefly f6">🌼</view>
+  </view>
+
+  <!-- Main centered dialogue area -->
+  <scroll-view class="dialogue-scroll" scroll-y enhanced show-scrollbar="{{false}}" scroll-into-view="{{scrollTo}}">
+    <view class="dialogue-stage">
+
+      <!-- ===== Phase 0: Symptom Question ===== -->
+      <view class="dialogue-block" wx:if="{{!symptomDone}}" id="phase-symptom">
+        <!-- Tooth character centered -->
+        <view class="tooth-center {{toothBounce ? 'bounce' : ''}}">
+          <view class="tooth-glow"></view>
+          <view class="big-tooth">
+            <view class="bt-shine"></view>
+            <view class="bt-eyes">
+              <view class="bt-eye"><view class="bt-pupil"></view></view>
+              <view class="bt-eye"><view class="bt-pupil"></view></view>
+            </view>
+            <view class="bt-blush"></view>
+            <view class="bt-mouth"></view>
+          </view>
+        </view>
+
+        <!-- Speech bubble -->
+        <view class="speech-box">
+          <text class="speech-text">除了心里难受，身体上有没有不舒服的地方呀？</text>
+          <view class="speech-tail"></view>
+        </view>
+
+        <!-- Symptom cards - game style -->
+        <view class="symptom-grid">
+          <view class="symptom-card {{selectedSymptom === item ? 'picked' : ''}}" wx:for="{{symptoms}}" wx:key="*this" bindtap="onSymptom" data-s="{{item}}">
+            <text class="symptom-icon">{{item === '吃不下饭' ? '🍽️' : item === '睡不着' ? '🌙' : item === '没力气' ? '🪶' : item === '胸闷' ? '💨' : item === '只想哭' ? '💧' : '🌿'}}</text>
+            <text class="symptom-label">{{item}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- ===== Phase 1: Deep AI Response ===== -->
+      <view class="dialogue-block deep-phase" wx:if="{{symptomDone && !answerSubmitted}}" id="phase-deep">
+        <!-- Typing AI response -->
+        <view class="tooth-center small">
+          <view class="mini-tooth-avatar">
+            <view class="mta-body">
+              <view class="mta-eyes">
+                <view class="mta-eye"></view>
+                <view class="mta-eye"></view>
+              </view>
+              <view class="mta-blush"></view>
+              <view class="mta-mouth"></view>
+            </view>
+          </view>
+        </view>
+
+        <view class="deep-bubble {{deepTyping ? 'typing' : ''}}">
+          <text class="deep-text">{{deepResponseText}}</text>
+          <view class="typing-cursor" wx:if="{{deepTyping}}">|</view>
+        </view>
+
+        <!-- Deep question + answer options (after typing done) -->
+        <view class="question-area" wx:if="{{!deepTyping && deepQuestion}}">
+          <view class="question-box">
+            <text class="question-label">牙牙想知道...</text>
+            <text class="question-text">{{deepQuestion}}</text>
+          </view>
+
+          <!-- Quick answer choices -->
+          <view class="answer-choices">
+            <view class="answer-chip {{selectedAnswer === item ? 'chosen' : ''}}" wx:for="{{answerOptions}}" wx:key="*this" bindtap="onPickAnswer" data-a="{{item}}">
+              <text>{{item}}</text>
+            </view>
+          </view>
+
+          <!-- Custom text input for deeper sharing -->
+          <view class="custom-answer-area">
+            <textarea
+              class="custom-answer-input"
+              value="{{customAnswer}}"
+              placeholder="或者在这里写下你心里的话..."
+              bindinput="onAnswerInput"
+              maxlength="300"
+              auto-height
+            ></textarea>
+            <view class="custom-send-btn {{customAnswer.trim() ? 'active' : ''}}" bindtap="onSendAnswer">
+              <text>说说看</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- ===== Phase 2: AI's Thoughtful Reply ===== -->
+      <view class="dialogue-block deep-phase" wx:if="{{answerSubmitted && !(deepReplyDone && storyLoaded)}}" id="phase-reply">
+        <view class="tooth-center small">
+          <view class="mini-tooth-avatar thinking">
+            <view class="mta-body">
+              <view class="mta-eyes">
+                <view class="mta-eye"></view>
+                <view class="mta-eye"></view>
+              </view>
+              <view class="mta-blush"></view>
+              <view class="mta-mouth-o"></view>
+            </view>
+          </view>
+        </view>
+
+        <view class="deep-bubble {{replyTyping ? 'typing' : ''}}">
+          <text class="deep-text">{{deepReplyText}}</text>
+          <view class="typing-cursor" wx:if="{{replyTyping}}">|</view>
+        </view>
+
+        <view class="heart-connect" wx:if="{{!replyTyping && deepReplyText}}">
+          <text class="heart-icon">💕</text>
+          <text class="heart-hint">牙牙认真听了你的话...</text>
+        </view>
+      </view>
+
+      <!-- ===== Phase 3: Story ===== -->
+      <view class="dialogue-block story-phase" wx:if="{{deepReplyDone && storyLoaded}}" id="phase-story">
+        <view class="story-reveal">
+          <text class="story-label">牙牙想送你一个故事</text>
+          <view class="story-card">
+            <text class="story-icon">📖</text>
+            <text class="story-preamble">{{storyPreamble}}</text>
+            <view class="story-divider"></view>
+            <text class="story-title">{{storyTitle}}</text>
+            <view class="story-body-wrap">
+              <text class="story-text">{{storyText}}</text>
+            </view>
+            <view class="story-divider"></view>
+            <text class="story-afterword">{{storyAfterword}}</text>
+          </view>
+        </view>
+
+        <view class="continue-area">
+          <text class="continue-hint">感觉心里暖一点了吗？</text>
+          <view class="continue-btn" bindtap="onContinue">
+            <text>好一点了，继续走走吧 ➤</text>
+          </view>
+        </view>
+      </view>
+
+      <view style="height: 80rpx;"></view>
+    </view>
+  </scroll-view>
+</view>

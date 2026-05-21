@@ -1,0 +1,81 @@
+<view class="container" catchtap="onScreenTap">
+  <music-toggle />
+
+  <!-- Ghibli forest background -->
+  <view class="ghibli-bg"></view>
+
+  <!-- Floating petals -->
+  <view class="fireflies">
+    <view class="firefly f1">🌸</view>
+    <view class="firefly f2">🌼</view>
+    <view class="firefly f3">🍀</view>
+    <view class="firefly f4">🌸</view>
+    <view class="firefly f5">🌿</view>
+    <view class="firefly f6">🌼</view>
+    <view class="firefly f7">🌸</view>
+    <view class="firefly f8">🍀</view>
+  </view>
+
+  <!-- Tap ripple -->
+  <view class="tap-ripple" wx:if="{{tapRipple.show}}" style="left: {{tapRipple.x}}px; top: {{tapRipple.y}}px;"></view>
+
+  <!-- Floating sparkles -->
+  <view wx:for="{{sparkles}}" wx:key="id" class="float-sparkle" style="left: {{item.x}}%; top: {{item.y}}%; font-size: {{item.size}}rpx;">
+    {{item.emoji}}
+  </view>
+
+  <view class="tooth-area">
+    <!-- Huge cute tooth character -->
+    <view class="tooth-wrapper" catchtap="onToothTap">
+      <view class="tooth-glow {{toothBounce ? 'glow-pulse' : ''}}"></view>
+      <view class="tooth-body {{toothBounce ? 'bounce' : ''}}">
+        <!-- Shine -->
+        <view class="tooth-shine-big"></view>
+        <view class="tooth-shine-small"></view>
+        <!-- Accessory -->
+        <view class="tooth-accessory">🌸</view>
+        <!-- Big sparkling eyes -->
+        <view class="tooth-eyes">
+          <view class="eye-big left">
+            <view class="eye-highlight h1"></view>
+            <view class="eye-highlight h2"></view>
+            <view class="eye-shine"></view>
+          </view>
+          <view class="eye-big right">
+            <view class="eye-highlight h1"></view>
+            <view class="eye-highlight h2"></view>
+            <view class="eye-shine"></view>
+          </view>
+        </view>
+        <!-- Rosy cheeks -->
+        <view class="tooth-blush left"></view>
+        <view class="tooth-blush right"></view>
+        <!-- Sweet smile -->
+        <view class="tooth-mouth">
+          <view class="mouth-curve"></view>
+        </view>
+        <!-- Little arms -->
+        <view class="tooth-arm left"></view>
+        <view class="tooth-arm right"></view>
+      </view>
+      <!-- Feet -->
+      <view class="tooth-feet">
+        <view class="foot left"></view>
+        <view class="foot right"></view>
+      </view>
+      <!-- Shadow -->
+      <view class="tooth-shadow"></view>
+    </view>
+
+    <!-- Speech bubble -->
+    <view class="speech-bubble">
+      <text>{{greeting}}</text>
+      <view class="bubble-tail"></view>
+    </view>
+  </view>
+
+  <button class="btn-primary btn-start" bindtap="onStart" data-ripple="off">我需要你</button>
+
+  <!-- Hint text -->
+  <text class="hint-tap">戳戳牙牙会有惊喜哦~</text>
+</view>

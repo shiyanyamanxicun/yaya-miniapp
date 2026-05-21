@@ -1,0 +1,83 @@
+.container {
+  min-height: 100vh; position: relative;
+  display: flex; flex-direction: column; align-items: center; padding: 32rpx;
+}
+
+/* 使用全局喜羊羊主题背景 */
+
+/* ===== Screen shake ===== */
+.container.shake {
+  animation: screenShake 0.5s ease-out;
+}
+@keyframes screenShake {
+  0%,100% { transform: translate(0,0); }
+  10% { transform: translate(-8rpx,6rpx); }
+  20% { transform: translate(10rpx,-4rpx); }
+  30% { transform: translate(-6rpx,-8rpx); }
+  40% { transform: translate(8rpx,4rpx); }
+  50% { transform: translate(-4rpx,6rpx); }
+  60% { transform: translate(6rpx,-2rpx); }
+  70% { transform: translate(-10rpx,2rpx); }
+  80% { transform: translate(4rpx,-6rpx); }
+  90% { transform: translate(-2rpx,4rpx); }
+}
+
+/* Floating petals */
+.petals { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+.petal {
+  position: absolute; top: -40rpx; font-size: 40rpx;
+  animation: petalFall 10s linear infinite;
+}
+.petal.p1 { left: 10%; animation-delay: 0s; font-size: 36rpx; }
+.petal.p2 { left: 28%; animation-delay: 2s; font-size: 30rpx; }
+.petal.p3 { left: 46%; animation-delay: 4s; font-size: 42rpx; }
+.petal.p4 { left: 62%; animation-delay: 6s; font-size: 34rpx; }
+.petal.p5 { left: 78%; animation-delay: 1.5s; font-size: 28rpx; }
+.petal.p6 { left: 90%; animation-delay: 5.5s; font-size: 38rpx; }
+@keyframes petalFall {
+  0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
+  50% { transform: translateY(50vh) translateX(60rpx) rotate(180deg); opacity: 0.7; }
+  100% { transform: translateY(100vh) translateX(-20rpx) rotate(360deg); opacity: 0; }
+}
+
+/* Smash sparkles overlay */
+.smash-sparkles { position: fixed; inset: 0; z-index: 5; pointer-events: none; }
+.smash-star {
+  position: absolute;
+  animation: starPop 0.7s ease-out forwards;
+}
+@keyframes starPop {
+  from { opacity: 1; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.5) rotate(180deg); }
+  to { opacity: 0; transform: scale(0.3) rotate(360deg) translateY(-60rpx); }
+}
+
+.game-header { text-align: center; margin-bottom: 24rpx; position: relative; z-index: 2; }
+.game-title { font-size: 36rpx; color: #2D5A1E; font-weight: 700; display: block; text-shadow: 0 2rpx 4rpx rgba(255,255,255,0.4); }
+.game-hint { font-size: 26rpx; color: #4A7A38; display: block; margin-top: 8rpx; }
+
+.canvas-wrap { position: relative; z-index: 2; width: 100%; }
+.game-canvas { width: 100%; height: 700rpx; border-radius: 24rpx; }
+
+/* Score pop */
+.score-pop {
+  position: absolute; z-index: 10; pointer-events: none;
+  font-size: 48rpx; font-weight: 700;
+  animation: scoreUp 0.8s ease-out forwards;
+}
+@keyframes scoreUp {
+  from { opacity: 1; transform: translateY(0) scale(0.5); }
+  to { opacity: 0; transform: translateY(-120rpx) scale(1.3); }
+}
+
+.game-result { text-align: center; margin-top: 32rpx; position: relative; z-index: 2; }
+.growth-text {
+  font-size: 40rpx; color: #2D5A1E; font-weight: 700;
+  display: block; margin-bottom: 32rpx;
+  text-shadow: 0 2rpx 4rpx rgba(255,255,255,0.4);
+  animation: fadeUp 0.8s ease;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,200 @@
+.container { height: 100vh; position: relative; overflow: hidden; }
+
+/* 使用全局喜羊羊主题背景 */
+
+/* ===== Scroll ===== */
+.chat-scroll {
+  height: calc(100vh - 150rpx);
+  position: relative; z-index: 1;
+  padding: 20rpx 20rpx 0;
+  box-sizing: border-box;
+}
+
+.msg-list {
+  display: flex; flex-direction: column; gap: 16rpx;
+  max-width: 680rpx; margin: 0 auto; width: 100%;
+}
+
+/* ===== SMS-style message rows ===== */
+.msg-row {
+  display: flex; align-items: flex-start; gap: 12rpx;
+  animation: msgIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  width: 100%;
+}
+.msg-row.user { justify-content: flex-end; }
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(20rpx); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Avatar ===== */
+.msg-avatar {
+  flex-shrink: 0; margin-top: 4rpx;
+}
+.chat-tooth {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.chat-tooth.bounce {
+  animation: toothJump 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes toothJump {
+  0%   { transform: scale(1) translateY(0); }
+  30%  { transform: scale(1.25) translateY(-24rpx); }
+  60%  { transform: scale(0.9) translateY(6rpx); }
+  100% { transform: scale(1) translateY(0); }
+}
+.ct-body {
+  width: 72rpx; height: 76rpx;
+  background: linear-gradient(180deg, #FFFAF8 0%, #FFF0EC 100%);
+  border-radius: 48% 48% 38% 38% / 55% 55% 40% 40%;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.12);
+  position: relative; display: flex; justify-content: center; align-items: center;
+}
+.ct-eyes { display: flex; gap: 12rpx; }
+.ct-eye {
+  width: 13rpx; height: 15rpx; background: #1A0A16; border-radius: 50%;
+  position: relative;
+}
+.ct-eye::after {
+  content: ''; position: absolute; width: 5rpx; height: 5rpx;
+  background: #FFF; border-radius: 50%; top: 2rpx; left: 2rpx;
+}
+.ct-blush {
+  position: absolute; bottom: 20rpx; width: 28rpx; height: 14rpx;
+  background: radial-gradient(ellipse, rgba(255,150,160,0.45) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.ct-smile {
+  position: absolute; bottom: 16rpx; width: 18rpx; height: 7rpx;
+  border-bottom: 3rpx solid #C08080; border-radius: 0 0 50% 50%;
+}
+/* Thinking mouth (small o) */
+.ct-mouth-o {
+  position: absolute; bottom: 17rpx; width: 12rpx; height: 12rpx;
+  border: 3rpx solid #C08080; border-radius: 50%;
+}
+
+/* ===== Tooth moods ===== */
+
+/* Thinking — eyes look up */
+.mood-thinking .ct-eye {
+  height: 12rpx; border-radius: 50% 50% 0 0;
+}
+.mood-thinking .ct-eye::after {
+  top: 1rpx; left: 3rpx; width: 4rpx; height: 4rpx;
+}
+.thinking-eyes .ct-eye {
+  height: 12rpx; border-radius: 50% 50% 0 0;
+}
+
+/* Warm — soft closed happy eyes */
+.mood-warm .ct-eye {
+  height: 6rpx; border-radius: 0 0 50% 50%;
+  background: transparent;
+  border-bottom: 3rpx solid #1A0A16;
+}
+.mood-warm .ct-eye::after {
+  display: none;
+}
+.mood-warm .ct-blush {
+  background: radial-gradient(ellipse, rgba(255,130,150,0.6) 0%, transparent 70%);
+  width: 34rpx; height: 18rpx;
+}
+
+/* ===== SMS-style bubbles — clean, no tails ===== */
+.msg-bubble {
+  max-width: 68%; padding: 20rpx 28rpx;
+  border-radius: 28rpx;
+  font-size: 30rpx; line-height: 1.6;
+  font-weight: 460; letter-spacing: 1.5rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06);
+  word-break: break-all;
+}
+.msg-bubble.ai {
+  background: rgba(255,255,255,0.94); color: #3D2B30;
+  border-top-left-radius: 8rpx;
+}
+.msg-bubble.user {
+  background: linear-gradient(135deg, #F0A0B0, #E88090);
+  color: #FFF;
+  border-top-right-radius: 8rpx;
+}
+
+/* Typing bubble */
+.typing-bubble {
+  padding: 16rpx 24rpx; min-width: 80rpx;
+}
+.typing-dots { display: flex; gap: 8rpx; }
+.dot {
+  width: 12rpx; height: 12rpx; background: #C08090; border-radius: 50%;
+  animation: dotBounce 1.2s ease-in-out infinite;
+}
+.dot:nth-child(2) { animation-delay: 0.18s; }
+.dot:nth-child(3) { animation-delay: 0.36s; }
+@keyframes dotBounce {
+  0%,100% { transform: translateY(0); opacity: 0.3; }
+  50%     { transform: translateY(-14rpx); opacity: 1; }
+}
+.typing-bounce { animation: bounceSoft 0.8s ease-in-out infinite; }
+@keyframes bounceSoft {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-12rpx); }
+}
+
+/* ===== Choice buttons ===== */
+.choices-area {
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 16rpx; padding-left: 84rpx; margin-top: 8rpx;
+  animation: msgIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+.choice-btn {
+  background: rgba(255,255,255,0.85); border-radius: 40rpx;
+  padding: 18rpx 36rpx; font-size: 28rpx; color: #5A3A46;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.08);
+  border: 2rpx solid rgba(200,150,160,0.25);
+  transition: all 0.2s;
+}
+.choice-btn:active { background: rgba(255,235,240,0.95); transform: scale(0.96); }
+.choice-btn.primary {
+  background: linear-gradient(135deg, #FF9800, #FFB74D);
+  color: #FFF; border: none;
+  box-shadow: 0 4rpx 20rpx rgba(255,152,0,0.35);
+}
+.choice-btn.primary:active { opacity: 0.85; transform: scale(0.96); }
+
+/* ===== Fixed input bar ===== */
+.input-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 10;
+  padding: 12rpx 20rpx calc(16rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(0deg, rgba(60,130,40,0.88) 0%, rgba(80,150,55,0.5) 70%, transparent 100%);
+}
+.input-box {
+  display: flex; align-items: flex-end; gap: 12rpx;
+  background: rgba(255,255,255,0.94); border-radius: 36rpx;
+  padding: 8rpx 8rpx 8rpx 28rpx;
+  box-shadow: 0 4rpx 28rpx rgba(0,0,0,0.12);
+  max-width: 680rpx; margin: 0 auto;
+}
+.chat-input {
+  flex: 1; background: transparent; border: none;
+  font-size: 28rpx; color: #3D2B30; max-height: 130rpx; min-height: 40rpx;
+  line-height: 1.5;
+}
+.send-btn {
+  width: 64rpx; height: 64rpx; border-radius: 50%; flex-shrink: 0;
+  background: #D5C8C8; display: flex; align-items: center; justify-content: center;
+  transition: all 0.25s; font-size: 24rpx; color: #FFF;
+}
+.send-btn.active {
+  background: linear-gradient(135deg, #FF9800, #FFB74D);
+  box-shadow: 0 4rpx 18rpx rgba(255,152,0,0.4);
+}
+.send-btn.active:active { transform: scale(0.85); }
+
+/* Sparkles */
+.float-sparkle { position: fixed; z-index: 99; pointer-events: none; animation: sparkleFly 0.6s ease-out forwards; }
+@keyframes sparkleFly {
+  from { opacity: 1; transform: translate(0,0) scale(0); }
+  50%  { opacity: 1; transform: translate(20rpx,-30rpx) scale(1.3); }
+  to   { opacity: 0; transform: translate(30rpx,-50rpx) scale(0.5); }
+}

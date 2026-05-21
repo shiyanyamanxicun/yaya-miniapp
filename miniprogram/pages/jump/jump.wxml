@@ -1,0 +1,54 @@
+<view class="container">
+  <music-toggle />
+  <view class="ghibli-bg"></view>
+
+  <!-- Score -->
+  <view class="score-bar">
+    <text class="score-label">分数</text>
+    <text class="score-num {{scorePop ? 'pop' : ''}}">{{score}}</text>
+  </view>
+
+  <!-- Game canvas — touch events on outer wrapper so overlays don't block them -->
+  <view class="canvas-wrap"
+    bindtouchstart="onTouchStart"
+    bindtouchend="onTouchEnd"
+  >
+    <canvas type="2d" id="jumpCanvas" class="game-canvas"></canvas>
+
+    <!-- Power indicator -->
+    <view class="power-bar" wx:if="{{gameState === 'charging'}}">
+      <view class="power-fill" style="width: {{powerRatio}}%; background: {{powerColor}};"></view>
+    </view>
+
+    <!-- Instructions overlay -->
+    <view class="instruction-overlay" wx:if="{{gameState === 'ready'}}">
+      <text class="instruction-title">按住屏幕蓄力，松开起跳 🎯</text>
+      <text class="instruction-sub">落在方块中心 +2分，落在上面 +1分</text>
+      <text class="instruction-sub">集满 6 分就可以继续前进啦~</text>
+    </view>
+
+    <!-- Game over -->
+    <view class="result-overlay" wx:if="{{gameState === 'gameover'}}">
+      <text class="result-title">{{score}} 分</text>
+      <text class="result-sub">差一点就够到了~</text>
+      <view class="retry-btn" catchtap="onRetry">
+        <text>再跳一次</text>
+      </view>
+      <view class="skip-btn" catchtap="onSkip">
+        <text>算了，直接砸瓶子吧</text>
+      </view>
+    </view>
+
+    <!-- Complete -->
+    <view class="result-overlay" wx:if="{{gameState === 'complete'}}">
+      <text class="result-title perfect">🎉 {{score}} 分</text>
+      <text class="result-sub">跳得太好了！</text>
+      <view class="continue-btn" catchtap="onContinue">
+        <text>继续砸瓶子 ➤</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Hint at bottom -->
+  <text class="bottom-hint" wx:if="{{gameState === 'ready'}}">按住屏幕蓄力，松开起跳</text>
+</view>

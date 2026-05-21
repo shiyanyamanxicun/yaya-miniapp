@@ -1,0 +1,37 @@
+<view class="container">
+  <music-toggle />
+  <view class="ghibli-bg"></view>
+
+  <!-- Twinkling stars -->
+  <view class="stars">
+    <view class="star s1">✦</view>
+    <view class="star s2">✧</view>
+    <view class="star s3">✦</view>
+    <view class="star s4">✧</view>
+    <view class="star s5">✦</view>
+    <view class="star s6">✧</view>
+  </view>
+
+  <view class="sky-area">
+    <!-- Butterflies floating -->
+    <view class="sky-butterfly" wx:for="{{butterflies}}" wx:key="id"
+      style="left: {{item.x}}%; top: {{item.y}}%; animation-delay: {{item.delay}}s; font-size: {{item.size}}rpx;">
+      🦋
+    </view>
+  </view>
+  <view class="end-content">
+    <view class="tooth-mini">
+      <view class="mini-body">
+        <view class="mini-eyes">
+          <view class="m-eye"><view class="m-pupil"></view></view>
+          <view class="m-eye"><view class="m-pupil"></view></view>
+        </view>
+        <view class="mini-mouth"></view>
+      </view>
+    </view>
+    <text class="end-title">蝴蝶会记住你的每一次勇敢</text>
+    <text class="end-sub">下次难过的时候，我还在这里等你</text>
+    <text class="end-count">你的天空已有 {{totalButterflies}} 只蝴蝶</text>
+    <button class="btn-primary" bindtap="onRestart">再来一次疗愈</button>
+  </view>
+</view>

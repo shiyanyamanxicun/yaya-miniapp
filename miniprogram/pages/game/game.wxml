@@ -1,0 +1,34 @@
+<view class="container {{shaking ? 'shake' : ''}}">
+  <music-toggle />
+  <view class="ghibli-bg"></view>
+
+  <!-- Floating petals -->
+  <view class="petals">
+    <view class="petal p1">🌸</view>
+    <view class="petal p2">🍃</view>
+    <view class="petal p3">🌸</view>
+    <view class="petal p4">✨</view>
+    <view class="petal p5">🍃</view>
+    <view class="petal p6">🌸</view>
+  </view>
+
+  <!-- Smash sparkle overlay (outside canvas) -->
+  <view class="smash-sparkles" wx:if="{{smashSparkles.length}}">
+    <view wx:for="{{smashSparkles}}" wx:key="id" class="smash-star" style="left: {{item.x}}rpx; top: {{item.y}}rpx; font-size: {{item.size}}rpx; animation-delay: {{item.delay}}s;">{{item.emoji}}</view>
+  </view>
+
+  <view class="game-header">
+    <text class="game-title">把不开心的都砸碎吧</text>
+    <text class="game-hint" wx:if="{{!gameDone}}">点击瓶子，把它们统统砸碎！</text>
+  </view>
+
+  <view class="canvas-wrap">
+    <canvas type="2d" id="gameCanvas" class="game-canvas" bindtouchstart="onTouch"></canvas>
+    <text class="score-pop" wx:if="{{scorePop.show}}" style="left: {{scorePop.x}}rpx; top: {{scorePop.y}}rpx;">💥 +1</text>
+  </view>
+
+  <view class="game-result" wx:if="{{gameDone}}">
+    <text class="growth-text">恭喜你在一次难过中成长 🌸</text>
+    <button class="btn-primary" bindtap="onContinue">继续</button>
+  </view>
+</view>

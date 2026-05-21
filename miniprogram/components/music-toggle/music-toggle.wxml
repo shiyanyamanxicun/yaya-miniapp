@@ -1,0 +1,3 @@
+<view class="music-btn" bindtap="onToggle">
+  <text>{{playing ? '🔊' : '🔇'}}</text>
+</view>
