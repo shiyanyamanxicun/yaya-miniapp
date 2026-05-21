@@ -5,7 +5,7 @@ App({
     selectedSymptom: '',
     bgMusicPlaying: false,
     bgmReady: false,
-    apiBase: 'https://yaya-miniapp-production.up.railway.app',
+    apiBase: 'https://yaya-miniapp-production-a622.up.railway.app',
   },
 
   onLaunch() {

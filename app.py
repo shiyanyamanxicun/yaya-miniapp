@@ -28,7 +28,7 @@ def add_cors_headers(resp):
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return jsonify({"status": "ok", "message": "牙牙正在运行"})
 
 
 @app.route("/api/conversation", methods=["POST"])
